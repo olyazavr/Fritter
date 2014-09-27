@@ -1,4 +1,12 @@
-proj2
-=====
+#Project 2 : Twitter Clone, Phase 1
 
-Twitter Clone
+##How to Run
+
+
+##Design
+
+
+###Challenges
+
+
+##Grading Directions
