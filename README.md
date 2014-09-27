@@ -1,12 +1,4 @@
-#Project 2 : Twitter Clone, Phase 1
+#Project 2 : Fritter, Phase 1
 
 ##How to Run
-
-
-##Design
-
-
-###Challenges
-
-
-##Grading Directions
+[Click here](http://fritter-olgash.rhcloud.com/)

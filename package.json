@@ -1,9 +1,19 @@
 {
-  "name": "ps2",
+  "name": "Fritter",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
+  },
+  "author": {
+    "name": "Olga Shestopalova",
+    "email": "olgash@mit.edu",
+    "url": "olyazavr.github.io"
+  },
+  "homepage": "http://fritter-olgash.rhcloud.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/6170-fa14/olgash_proj2"
   },
   "dependencies": {
     "express": "~4.9.0",
@@ -13,5 +23,7 @@
     "serve-favicon": "~2.1.3",
     "debug": "~2.0.0",
     "ejs": "~0.8.5"
-  }
+  },
+  "private": true,
+  "main": "server.js"
 }
