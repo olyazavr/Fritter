@@ -24,6 +24,7 @@
     "debug": "~2.0.0",
     "ejs": "~0.8.5"
   },
+
   "private": true,
   "main": "server.js"
 }
