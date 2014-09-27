@@ -26,5 +26,5 @@
   },
 
   "private": true,
-  "main": "server.js"
+  "main": "app.js"
 }
