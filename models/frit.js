@@ -8,3 +8,4 @@ var FritSchema = new Schema({
 });
 
 var Frit = mongoose.model('Frit', FritSchema);
+module.exports = Frit;

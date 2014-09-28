@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Welcome to Fritter!</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>Welcome to Fritter!</h1>
+    <form id="login", action="/login", method="post">
+      <input type="text", name="user[email]", placeholder="Enter email">
+      <input type="password", name="user[password]", placeholder="Enter password">
+      <input type="submit", value="Login", method="post">
   </body>
 </html>
