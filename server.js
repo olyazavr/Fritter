@@ -8,13 +8,14 @@ var mongoose = require('mongoose');
 var app = express();
 
 // connect to db
-connection_string = 'mongodb://';
+var connection_string = 'mongodb://localhost/fritter';
 
-if (process.env.OPENSHIFT_MONGODB_DB_HOST) {
-  connection_string += process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-        process.env.OPENSHIFT_MONGODB_DB_PORT;
-} else {
-    connection_string += 'localhost/test';
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+  process.env.OPENSHIFT_APP_NAME;
 }
 
 // view engine setup

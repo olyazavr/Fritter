@@ -33,8 +33,8 @@ $(document).ready(function() {
                               '<form id="editFrit" action=' + action + ' method="post">' +
                                 '<input type="hidden" name=fritId value=' + fritId + '>' +
                                 '<input type="hidden" name=userId value=' + userId + '>' +
-                                '<input type="hidden" name=userName value=' + userName + '>' +
-                                '<input type="text" name="text" value=' + oldText + '>' +
+                                '<input type="hidden" name=userName value="' + userName + '">' +
+                                '<input type="text" name="text" value="' + oldText + '">' +
                                 '<input type="submit" class="btn btn-primary" value="Save Changes" method="post">' +
                               '</form>' +
                               '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
