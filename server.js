@@ -5,16 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var index = require('./routes/index');
-var login = require('./routes/login');
-var register = require('./routes/register');
-var feed = require('./routes/feed');
-var newFrit = require('./routes/newFrit');
-var editFrit = require('./routes/editFrit');
-var deleteFrit = require('./routes/deleteFrit');
-
 var app = express();
-
 
 // connect to db
 connection_string = 'mongodb://';
@@ -25,14 +16,6 @@ if (process.env.OPENSHIFT_MONGODB_DB_HOST) {
 } else {
     connection_string += 'localhost/test';
 }
-
-mongoose.connect(connection_string);
-var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function callback () {
-//   console.log('YAY');
-// });
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -45,13 +28,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
-app.use('/', index);
-app.use('/login', login);
-app.use('/register', register);
-app.use('/feed', feed);
-app.use('/newFrit', newFrit);
-app.use('/editFrit', editFrit);
-app.use('/deleteFrit', deleteFrit);
+app.use('/', require('./routes/index'));
+app.use('/login', require('./routes/login'));
+app.use('/register', require('./routes/register'));
+app.use('/feed', require('./routes/feed'));
+app.use('/newFrit', require('./routes/newFrit'));
+app.use('/editFrit', require('./routes/editFrit'));
+app.use('/deleteFrit', require('./routes/deleteFrit'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -87,6 +70,12 @@ app.use(function(err, req, res, next) {
 var port = process.env.OPENSHIFT_NODEJS_PORT;
 var ip = process.env.OPENSHIFT_NODEJS_IP;
 
-app.listen(port || 8080, ip);
+mongoose.connect(connection_string);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+    app.listen(port || 8080, ip);
+});
+
 
 module.exports = app;

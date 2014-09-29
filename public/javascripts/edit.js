@@ -19,7 +19,7 @@ $(document).ready(function() {
             title = 'Create Frit'
         }
 
-        // add modal
+        // add bootstrap modal
         var modal = '<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
                         '<div class="modal-dialog">' +
                           '<div class="modal-content">' +

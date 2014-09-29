@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
 var Frit = require('../models/frit');
 
 // post a new frit
