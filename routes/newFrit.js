@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var _ = require('underscore');
 var Frit = require('../models/frit');
 
 // post a new frit
 router.post('/', function(req, res) {
     var userName = req.body.userName;
     var userId = req.body.userId;
-    var text = req.body.text;
+    var text = _.escape(req.body.text);
 
     // create new frit
     var frit = new Frit({ text: text, authorName: userName, author: userId });
