@@ -8,7 +8,7 @@ $(document).ready(function() {
         var fritId = $(this).attr('fritId');
         var userId = $(this).attr('userId');
         var userName = $(this).attr('userName');
-        var textElt = $('#' + this.id + '.frit');
+        var textElt = $('#' + this.id + '.frit-text');
         var oldText = textElt.text();
         var action = '/editFrit'
         var title = 'Edit Frit'
@@ -48,5 +48,10 @@ $(document).ready(function() {
         $('#editModalHere').append($(modal));
         $('#editModal').modal('show');
     });
+    
+    // redirect to home page
+    $('#logout').click(function(){
+        window.location = "/";
+    })
 
 });

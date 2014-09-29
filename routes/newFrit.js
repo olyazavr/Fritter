@@ -11,10 +11,14 @@ router.post('/', function(req, res) {
     // create new frit
     var frit = new Frit({ text: text, authorName: userName, author: userId });
     frit.save(function (err, frit) {
-        if (err) return console.error(err);
-
-            // redirect to feed
-            res.redirect('/feed/' + userId);      
+        if (err) {
+            // something bad happened
+            res.redirect('/feed/' + userId + '?error=Please try again');
+            console.error(err);
+        } else {
+            // success! redirect to feed
+            res.redirect('/feed/' + userId);
+        }
     });
     
 });

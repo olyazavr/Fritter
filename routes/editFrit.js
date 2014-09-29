@@ -9,9 +9,13 @@ router.post('/', function(req, res) {
     var userId = req.body.userId;
 
     Frit.update({ _id: fritId }, { text: text }, function (err, frit) {
-        if (err) return console.log(err);
-        console.log(frit);
-        res.redirect('/feed/' + userId);
+        if (err) {
+            // something bad happened
+            res.redirect('/feed/' + userId + '?error=Please try again');
+            console.error(err);
+        } else {
+            res.redirect('/feed/' + userId);
+        }
     });
 
 });

@@ -1,16 +1,25 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
 }
 
 form {
     float: left;
 }
 
+.frit {
+    vertical-align: middle;
+    font-size: 24px;
+}
+
 .author {
     font-weight: bold;
+}
+
+.frit-date {
+    font-size: 15px;
+    color: gray;
+}
+
+.controls {
+    float: right;
 }

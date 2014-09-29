@@ -10,8 +10,19 @@ router.post('/', function(req, res) {
 
     var user = new User({ name: name, email: email, password: password });
     user.save(function (err, user) {
-        if (err) return console.error(err);
-        res.redirect('/feed/' + user.id);
+        if (err) {
+            if (err.code == 11000) {
+                // duplicate email
+                res.redirect('/?error=An account is already associated with that email');
+            } else {
+                // something bad happened
+                console.error(err.code.code);
+                res.redirect('/?error=Please try again');
+            }
+        } else {
+            // success! redirect to feed
+            res.redirect('/feed/' + user.id + '?success=Successfully created account!');
+        }
     });
 });
 

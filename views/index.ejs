@@ -4,26 +4,27 @@
     <title>Welcome to Fritter!</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
+    <script src='/javascript/index.js'></script>
   </head>
   <body>
     <h1>Welcome to Fritter!</h1>
+    <br>
 
-    <!-- login form -->
+    <!-- error handling -->
+    <% if (error) { %>
+    <p class='text-danger'><%= error %></p>
+    <% } %>
+
+    <!-- login/register form -->
+    <input type="checkbox" id="toggle-login">
+    <label for="toggle-login">Make a new account</label>
+    <br>
     <form id='login' action='/login' method='post'>
-      <input type='text' name='email' placeholder='Enter email'>
-      <input type='password' name='password' placeholder='Enter password'>
-      <input type='submit' class='btn btn-default' value='Login' method='post'>
+      <input type='email' class="form-control" name='email' placeholder='Enter email' required autofocus>
+      <input type='password' class="form-control" name='password' placeholder='Enter password' required>
+      <input type='submit' class='btn btn-large btn-primary btn-block' value='Login' method='post' required>
     </form>
-    <br>
-    <br>
 
-    <!-- register form -->
-    <form id='register' action='/register' method='post'>
-      <input type='text' name='name' placeholder='Enter name'>
-      <input type='text' name='email' placeholder='Enter email'>
-      <input type='password' name='password' placeholder='Enter password'>
-      <input type='submit' class='btn btn-default' value='Register' method='post'>
-    </form>
-    
   </body>
 </html>

@@ -8,8 +8,13 @@ router.post('/', function(req, res) {
     var userId = req.body.userId;
 
     Frit.remove({ _id: fritId }, function (err) {
-        if (err) return handleError(err);
-        res.redirect('/feed/' + userId);
+        if (err) {
+            // something bad happened
+            res.redirect('/feed/' + userId + '?error=Please try again');
+            console.error(err);
+        } else {
+            res.redirect('/feed/' + userId + '?success=Successfully deleted Frit');
+        }
     });
 
 });
