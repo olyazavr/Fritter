@@ -5,8 +5,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./routes/index');
+var login = require('./routes/login');
+var register = require('./routes/register');
+var feed = require('./routes/feed');
+var newFrit = require('./routes/newFrit');
+var editFrit = require('./routes/editFrit');
+var deleteFrit = require('./routes/deleteFrit');
 
 var app = express();
 
@@ -22,6 +27,11 @@ if (process.env.OPENSHIFT_MONGODB_DB_HOST) {
 }
 
 mongoose.connect(connection_string);
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function callback () {
+//   console.log('YAY');
+// });
 
 
 // view engine setup
@@ -34,8 +44,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+// routes
+app.use('/', index);
+app.use('/login', login);
+app.use('/register', register);
+app.use('/feed', feed);
+app.use('/newFrit', newFrit);
+app.use('/editFrit', editFrit);
+app.use('/deleteFrit', deleteFrit);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

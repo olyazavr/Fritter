@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fritter | <%= user.name %>'s Feed</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
+    <script src='/javascripts/edit.js'></script>
+  </head>
+  <body>
+
+    <h1>Welcome, <%= user.name %>!</h1>
+    <!-- add new frit -->
+    <button class='btn btn-primary edit' id='-1' userId=<%= user.id %> userName=<%= user.name %>>New Frit</button>
+    <br>
+    <br>
+
+    <!-- loop over all frits and add them -->
+    <% frits.forEach(function(frit, counter) { %>
+        <p>
+          <!-- only authors of frits can edit/delete their frits -->
+          <% if (frit.authorName == user.name) { %>
+          <!-- delete frit -->
+          <form id=<%= counter %> class='deleteFrit' action='/deleteFrit' method='post'>
+            <input type='hidden' name='fritId' value=<%= frit.id %>>
+            <input type='hidden' name='userId' value=<%= user.id %>>
+            <input type='submit' class='btn btn-default' value='X' method='post'>
+          </form>
+
+          <!-- edit frit -->
+          <button class='btn btn-primary edit' id=<%= counter %> userId=<%= user.id %> fritId=<%= frit.id %>>Edit</button>
+          <% } %>
+
+          <span id=<%= counter %> class='author'><%= frit.authorName %>:</span> 
+          <span id=<%= counter %> class='frit'><%= frit.text %></span></p>
+    <% }); %>
+
+    <div id='editModalHere'></div>
+
+  </body>
+</html>

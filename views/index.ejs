@@ -3,12 +3,22 @@
   <head>
     <title>Welcome to Fritter!</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
   </head>
   <body>
     <h1>Welcome to Fritter!</h1>
-    <form id="login", action="/login", method="post">
-      <input type="text", name="user[email]", placeholder="Enter email">
-      <input type="password", name="user[password]", placeholder="Enter password">
-      <input type="submit", value="Login", method="post">
+    <form id='login' action='/login' method='post'>
+      <input type='text' name='email' placeholder='Enter email'>
+      <input type='password' name='password' placeholder='Enter password'>
+      <input type='submit' class='btn btn-default' value='Login' method='post'>
+    </form>
+    <br>
+    <br>
+    <form id='register' action='/register' method='post'>
+      <input type='text' name='name' placeholder='Enter name'>
+      <input type='text' name='email' placeholder='Enter email'>
+      <input type='password' name='password' placeholder='Enter password'>
+      <input type='submit' class='btn btn-default' value='Register' method='post'>
+    </form>
   </body>
 </html>
