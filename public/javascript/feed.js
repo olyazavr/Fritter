@@ -6,9 +6,6 @@ $(document).ready(function() {
         $('#editModal').remove();
 
         var fritId = $(this).attr('fritId');
-        var userId = $(this).attr('userId');
-        var userEmail = $(this).attr('userEmail');
-        var userName = $(this).attr('userName');
         var textElt = $('#' + this.id + '.frit-text');
         var oldText = textElt.text();
         var action = '/editFrit'
@@ -33,9 +30,6 @@ $(document).ready(function() {
                               '<!-- editing space -->' +
                               '<form id="editFrit" action=' + action + ' method="post">' +
                                 '<input type="hidden" name=fritId value=' + fritId + '>' +
-                                '<input type="hidden" name=userId value=' + userId + '>' +
-                                '<input type="hidden" name=userName value="' + userName + '">' +
-                                '<input type="hidden" name=userEmail value="' + userEmail + '">' +
                                 '<input type="text" name="text" value="' + oldText + '">' +
                                 '<input type="submit" class="btn btn-primary" value="Save Changes" method="post">' +
                               '</form>' +
@@ -50,10 +44,5 @@ $(document).ready(function() {
         $('#editModalHere').append($(modal));
         $('#editModal').modal('show');
     });
-    
-    // redirect to home page
-    $('#logout').click(function(){
-        window.location = "/";
-    })
 
 });

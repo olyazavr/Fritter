@@ -3,22 +3,24 @@ var router = express.Router();
 var User = require('../models/user');
 
 // display frits from friends
-router.get('/:userId', function(req, res) {
+router.get('/', function(req, res) {
     var error = req.query.error;
     var success = req.query.success;
-    var userId = req.params.userId;
+    var userId = req.session.userId;
+
+    // not logged in
+    if (userId == undefined) {
+        return res.redirect('/?error=Please log in');
+    }
 
     User.findOne({ _id: userId }, function (err, user) {
-        if (err) {
+        if (err || user == null) {
             // something bad happened
             console.error(err);
             res.redirect('/?error=Please try again');
-        } else if (user == null){
-            // user not found
-            res.redirect('/?error=Please make an account');
         } else {
 
-            // user logged in, show feed
+            // user exists, show feed
             user.getFrits(function(err, frits) {
                 if (err) {
                     // something bad happened

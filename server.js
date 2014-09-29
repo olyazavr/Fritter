@@ -3,20 +3,10 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var mongoose = require('mongoose');
 
 var app = express();
-
-// connect to db
-var connection_string = 'mongodb://localhost/fritter';
-
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
-  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-  process.env.OPENSHIFT_APP_NAME;
-}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +18,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// cookies
+app.use(session({ secret: 'beans', 
+                saveUninitialized: true,
+                resave: true }));
+
 // routes
 app.use('/', require('./routes/index'));
 app.use('/login', require('./routes/login'));
@@ -36,6 +31,7 @@ app.use('/feed', require('./routes/feed'));
 app.use('/newFrit', require('./routes/newFrit'));
 app.use('/editFrit', require('./routes/editFrit'));
 app.use('/deleteFrit', require('./routes/deleteFrit'));
+app.use('/logout', require('./routes/logout'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -68,10 +64,26 @@ app.use(function(err, req, res, next) {
     });
 });
 
+//  find db string
+var connection_string = 'mongodb://localhost/fritter';
+
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+    connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+    process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+    process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+    process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+    process.env.OPENSHIFT_APP_NAME;
+}
+
 var port = process.env.OPENSHIFT_NODEJS_PORT;
 var ip = process.env.OPENSHIFT_NODEJS_IP;
 
+// connect mongo and go!
 mongoose.connect(connection_string);
-app.listen(port || 8080, ip);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.on('open', function () {
+    app.listen(port || 8080, ip);
+});
 
 module.exports = app;

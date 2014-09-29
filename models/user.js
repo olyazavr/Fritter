@@ -14,37 +14,19 @@ UserSchema.methods.verifyPassword = function (enteredPassword) {
 
 // find all frits made by me, sorted by date
 UserSchema.methods.getMyFrits = function (callback) {
-    Frit.find({ author: userId }, function (err, frits) {
-        if (err) return callback(err);
-
-        var sortedFrits = frits;
-
-        // sort by newest
-        if (sortedFrits != []) {
-            sortedFrits.sort(function(frit1, frit2) {
-                return frit2.date - frit1.date;
-            });
-        }
-
-        return callback(null, sortedFrits);
+    Frit.find({ author: userId }).sort({ date: 'desc' }).exec(function (err, frits) {
+        Frit.populate(frits, { path: "author" }, function (err, frits) {
+            return callback(err, frits);
+        });
     });
 }
 
 // find all frits, sorted by date
 UserSchema.methods.getFrits = function (callback) {
-    Frit.find({}, function (err, frits) {
-        if (err) return callback(err);
-
-        var sortedFrits = frits;
-
-        // sort by newest
-        if (sortedFrits != []) {
-            sortedFrits.sort(function(frit1, frit2) {
-                return frit2.date - frit1.date;
-            });
-        }
-
-        return callback(null, sortedFrits);
+    Frit.find({}).sort({ date: 'desc' }).exec(function (err, frits) {
+        Frit.populate(frits, { path: "author" }, function (err, frits) {
+            return callback(err, frits);
+        });
     });
 }
 

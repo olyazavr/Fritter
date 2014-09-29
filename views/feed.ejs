@@ -10,8 +10,10 @@
   </head>
   <body>
     <!-- logout and new frit buttons -->
-    <button id='logout' class='btn btn-large btn-default controls'>Logout</button>
-    <button class='btn btn-large btn-primary edit controls' id='-1' userId=<%= user.id %> userName=<%= user.name %> userEmail=<%= user.email %>>New Frit</button>
+    <form action='/logout' class='controls' method='post'>
+        <input type='submit' class='btn btn-large btn-default controls' value='Logout' method='post'>
+    </form>
+    <button class='btn btn-large btn-primary edit controls' id='-1'>New Frit</button>
 
     <h1>Welcome, <%= user.name %>!</h1>
     <br>
@@ -32,19 +34,18 @@
     <% frits.forEach(function(frit, counter) { %>
         <p class='frit'>
             <!-- only authors of frits can edit/delete their frits -->
-            <% if (frit.authorEmail == user.email) { %>
+            <% if (frit.author.email == user.email) { %>
                 <!-- delete frit -->
-                <form id=<%= counter %> class='deleteFrit' action='/deleteFrit' method='post'>
+                <form class='deleteFrit' action='/deleteFrit' method='post'>
                     <input type='hidden' name='fritId' value=<%= frit.id %>>
-                    <input type='hidden' name='userId' value=<%= user.id %>>
                     <input type='submit' class='btn btn-default' value='X' method='post'>
                 </form>
 
                 <!-- edit frit -->
-                <button class='btn btn-primary edit' id=<%= counter %> userId=<%= user.id %> fritId=<%= frit.id %>>Edit</button>
+                <button id=<%= counter %> class='btn btn-primary edit' fritId=<%= frit.id %>>Edit</button>
             <% } %>
 
-            <span id=<%= counter %> class='frit author'><%= frit.authorName %>:</span> 
+            <span id=<%= counter %> class='frit author'><%= frit.author.name %>:</span> 
             <span id=<%= counter %> class='frit frit-text'><%= frit.text %></span>
             <br>
             <% var dateString = frit.date.toString(); %> <!-- cut off GMT -->

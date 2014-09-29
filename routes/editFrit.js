@@ -7,15 +7,15 @@ var Frit = require('../models/frit');
 router.post('/', function(req, res) {
     var fritId = req.body.fritId;
     var text = _.escape(req.body.text);
-    var userId = req.body.userId;
+    var userId = req.session.userId;
 
     Frit.update({ _id: fritId }, { text: text }, function (err, frit) {
         if (err) {
             // something bad happened
-            res.redirect('/feed/' + userId + '?error=Please try again');
+            res.redirect('/feed?error=Please try again');
             console.error(err);
         } else {
-            res.redirect('/feed/' + userId);
+            res.redirect('/feed');
         }
     });
 

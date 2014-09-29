@@ -12,15 +12,21 @@ router.post('/', function(req, res) {
             // something bad happened
             console.error(err.code);
             res.redirect('/?error=Please try again');
+
         } else if (user == null){
             // user not found
             res.redirect('/?error=Please make an account');
-        } else if (user.verifyPassword(password)) {
-            // user correctly logged in, show feed
-            res.redirect('/feed/' + user.id);
-        } else {
+
+        } else if (!user.verifyPassword(password)) {
             // incorrect password
             res.redirect('/?error=Incorrect password');
+
+        } else {
+            // user correctly logged in, show feed
+            req.session.userId = user.id
+            req.session.save(function(err) {
+                res.redirect('/feed/');
+            });
         }
 
     });

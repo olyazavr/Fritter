@@ -21,7 +21,10 @@ router.post('/', function(req, res) {
             }
         } else {
             // success! redirect to feed
-            res.redirect('/feed/' + user.id + '?success=Successfully created account!');
+            req.session.userId = user.id
+            req.session.save(function(err) {
+                res.redirect('/feed?success=Successfully created account!');
+            });
         }
     });
 });
