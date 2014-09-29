@@ -27,7 +27,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_HOST) {
 }
 
 mongoose.connect(connection_string);
-// var db = mongoose.connection;
+var db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error:'));
 // db.once('open', function callback () {
 //   console.log('YAY');
