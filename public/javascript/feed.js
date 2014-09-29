@@ -7,6 +7,7 @@ $(document).ready(function() {
 
         var fritId = $(this).attr('fritId');
         var userId = $(this).attr('userId');
+        var userEmail = $(this).attr('userEmail');
         var userName = $(this).attr('userName');
         var textElt = $('#' + this.id + '.frit-text');
         var oldText = textElt.text();
@@ -34,6 +35,7 @@ $(document).ready(function() {
                                 '<input type="hidden" name=fritId value=' + fritId + '>' +
                                 '<input type="hidden" name=userId value=' + userId + '>' +
                                 '<input type="hidden" name=userName value="' + userName + '">' +
+                                '<input type="hidden" name=userEmail value="' + userEmail + '">' +
                                 '<input type="text" name="text" value="' + oldText + '">' +
                                 '<input type="submit" class="btn btn-primary" value="Save Changes" method="post">' +
                               '</form>' +

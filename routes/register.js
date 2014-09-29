@@ -16,7 +16,7 @@ router.post('/', function(req, res) {
                 res.redirect('/?error=An account is already associated with that email');
             } else {
                 // something bad happened
-                console.error(err.code.code);
+                console.error(err);
                 res.redirect('/?error=Please try again');
             }
         } else {

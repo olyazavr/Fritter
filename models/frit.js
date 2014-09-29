@@ -5,6 +5,7 @@ var FritSchema = new Schema({
     text: String,
     date: {type: Date, default: Date.now},
     authorName: String,
+    authorEmail: String,
     author: {type: mongoose.Schema.Types.ObjectId, ref: "User" }
 });
 

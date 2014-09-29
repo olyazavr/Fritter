@@ -11,7 +11,7 @@
   <body>
     <!-- logout and new frit buttons -->
     <button id='logout' class='btn btn-large btn-default controls'>Logout</button>
-    <button class='btn btn-large btn-primary edit controls' id='-1' userId=<%= user.id %> userName=<%= user.name %>>New Frit</button>
+    <button class='btn btn-large btn-primary edit controls' id='-1' userId=<%= user.id %> userName=<%= user.name %> userEmail=<%= user.email %>>New Frit</button>
 
     <h1>Welcome, <%= user.name %>!</h1>
     <br>
@@ -32,7 +32,7 @@
     <% frits.forEach(function(frit, counter) { %>
         <p class='frit'>
             <!-- only authors of frits can edit/delete their frits -->
-            <% if (frit.authorName == user.name) { %>
+            <% if (frit.authorEmail == user.email) { %>
                 <!-- delete frit -->
                 <form id=<%= counter %> class='deleteFrit' action='/deleteFrit' method='post'>
                     <input type='hidden' name='fritId' value=<%= frit.id %>>
