@@ -72,11 +72,6 @@ var port = process.env.OPENSHIFT_NODEJS_PORT;
 var ip = process.env.OPENSHIFT_NODEJS_IP;
 
 mongoose.connect(connection_string);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-    app.listen(port || 8080, ip);
-});
-
+app.listen(port || 8080, ip);
 
 module.exports = app;
