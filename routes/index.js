@@ -8,6 +8,7 @@ router.get('/', function(req, res) {
         return res.redirect('/feed');
     }
     
+    // not logged in, render homepage
     var error = req.query.error;
     res.render('index', { error : error });
 });

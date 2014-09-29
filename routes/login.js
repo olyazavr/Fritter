@@ -17,20 +17,29 @@ router.post('/', function(req, res) {
             // user not found
             res.redirect('/?error=Please make an account');
 
-        } else if (!user.verifyPassword(password)) {
+        } else {
+            // all good! verify password
+            verifyPassword(password, user, req, res);
+        }
+    });
+});
+
+
+// if correct password, redirect to feed, otherwise 
+// redirect to home and show error messsage
+var verifyPassword = function(password, user, req, res) {
+    user.verifyPassword(password, function(err, match) {
+        if (err || !match) {
             // incorrect password
             res.redirect('/?error=Incorrect password');
-
         } else {
-            // user correctly logged in, show feed
+            // save userId cookie, show feed
             req.session.userId = user.id
             req.session.save(function(err) {
-                res.redirect('/feed/');
+                res.redirect('/feed');
             });
         }
-
     });
-
-});
+}
 
 module.exports = router;

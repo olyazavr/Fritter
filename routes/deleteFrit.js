@@ -10,8 +10,8 @@ router.post('/', function(req, res) {
     Frit.remove({ _id: fritId }, function (err) {
         if (err) {
             // something bad happened
-            res.redirect('/feed?error=Please try again');
             console.error(err);
+            res.redirect('/feed?error=Please try again');
         } else {
             res.redirect('/feed?success=Successfully deleted Frit');
         }

@@ -23,6 +23,7 @@ router.post('/', function(req, res) {
             // success! redirect to feed
             req.session.userId = user.id
             req.session.save(function(err) {
+                if (err) console.error(err);
                 res.redirect('/feed?success=Successfully created account!');
             });
         }

@@ -30,7 +30,7 @@ $(document).ready(function() {
                               '<!-- editing space -->' +
                               '<form id="editFrit" action=' + action + ' method="post">' +
                                 '<input type="hidden" name=fritId value=' + fritId + '>' +
-                                '<input type="text" name="text" value="' + oldText + '">' +
+                                '<input type="text" name="text" value="' + oldText + '" required autofocus>' +
                                 '<input type="submit" class="btn btn-primary" value="Save Changes" method="post">' +
                               '</form>' +
                               '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
