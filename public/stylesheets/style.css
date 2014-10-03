@@ -23,3 +23,11 @@ form {
 .controls {
     float: right;
 }
+
+.feed-controls {
+    float: left;
+}
+
+.hidden {
+    visibility: hidden;
+}

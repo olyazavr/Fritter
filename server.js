@@ -32,6 +32,8 @@ app.use('/newFrit', require('./routes/newFrit'));
 app.use('/editFrit', require('./routes/editFrit'));
 app.use('/deleteFrit', require('./routes/deleteFrit'));
 app.use('/logout', require('./routes/logout'));
+app.use('/follow', require('./routes/follow'));
+app.use('/favorite', require('./routes/favorite'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -45,4 +45,41 @@ $(document).ready(function() {
         $('#editModal').modal('show');
     });
 
+    
+    // toggle viewing all Frits
+    $('#all-frits').click(function() {
+        // flip buttons being disabled
+        $(this).attr('disabled', 'disabled');
+        $('#follow-frits').removeAttr('disabled');
+        $('#fav-frits').removeAttr('disabled');
+        
+        // hide all not followed frits
+        $('.not-followed').removeClass('hidden');
+        $('.not-favorited').removeClass('hidden');
+    });
+
+    // toggle viewing Frits only by those you follow
+    $('#follow-frits').click(function() {
+        // flip buttons being disabled
+        $(this).attr('disabled', 'disabled');
+        $('#all-frits').removeAttr('disabled');
+        $('#fav-frits').removeAttr('disabled');
+        
+        // unhide all not followed frits
+        $('.not-favorited').removeClass('hidden');
+        $('.not-followed').addClass('hidden');
+    });
+
+    // toggle viewing only favorited Frits
+    $('#fav-frits').click(function() {
+        // flip buttons being disabled
+        $(this).attr('disabled', 'disabled');
+        $('#follow-frits').removeAttr('disabled');
+        $('#all-frits').removeAttr('disabled');
+        
+        // unhide all not followed frits
+        $('.not-followed').removeClass('hidden');
+        $('.not-favorited').addClass('hidden');
+    });
+
 });

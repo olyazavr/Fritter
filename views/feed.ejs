@@ -16,6 +16,10 @@
     <button class='btn btn-large btn-primary edit controls' id='-1'>New Frit</button>
 
     <h1>Welcome, <%= user.name %>!</h1>
+    <button id='all-frits' disabled='disabled' class='btn btn-info feed-controls'>See Frits of everyone</button>
+    <button id='follow-frits' class='btn btn-success feed-controls'>See only Frits of those you follow</button>
+    <button id='fav-frits' class='btn btn-warning feed-controls'>See only favorite Frits</button>
+    <br>
     <br>
 
     <!-- error handling -->
@@ -32,7 +36,15 @@
 
     <!-- loop over all frits and add them -->
     <% frits.forEach(function(frit, counter) { %>
-        <p class='frit'>
+        <% var followed = user.isFollowing(frit.author.id); %>
+        <% var favorited = frit.isFavoriteOf(user.id); %>
+        <% var followedString = followed ? 'followed' : 'not-followed'; %>
+        <% var favoriteString = favorited ? 'favorited' : 'not-favorited'; %>
+        <% var followActionString = followed ? 'Unfollow' : 'Follow'; %>
+        <% var favoriteActionString = favorited ? 'Unfavorite' : 'Favorite'; %>
+
+        <div class='frit <%= followedString %> <%= favoriteString %>'>
+
             <!-- only authors of frits can edit/delete their frits -->
             <% if (frit.author.email == user.email) { %>
                 <!-- delete frit -->
@@ -43,6 +55,22 @@
 
                 <!-- edit frit -->
                 <button id=<%= counter %> class='btn btn-primary edit' fritId=<%= frit.id %>>Edit</button>
+            
+            <% } else { %>
+                <!-- follow button -->
+                <form class='follow' action='/follow' method='post'>
+                    <input type='hidden' name='userIdToFollow' value=<%= frit.author.id %>>
+                    <input type='hidden' name='follow' value=<%= !followed %>>
+                    <input type='submit' class='btn btn-success' value='<%=followActionString%>' method='post'>
+                </form>
+
+                <!-- favorite button -->
+                <form class='favorite' action='/favorite' method='post'>
+                    <input type='hidden' name='fritIdToFavorite' value=<%= frit.id %>>
+                    <input type='hidden' name='favorite' value=<%= !favorited %>>
+                    <input type='submit' class='btn btn-warning' value='<%=favoriteActionString%>' method='post'>
+                </form>
+
             <% } %>
 
             <span id=<%= counter %> class='frit author'><%= frit.author.name %>:</span> 
@@ -50,7 +78,7 @@
             <br>
             <% var dateString = frit.date.toString(); %> <!-- cut off GMT -->
             <span id=<%= counter %> class='frit frit-date'><%= dateString.substring(0, dateString.length-15) %></span>
-        </p>
+        </div>
     <% }); %>
 
     <div id='editModalHere'></div>

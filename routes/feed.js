@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
-// display frits from friends
+// display frits
 router.get('/', function(req, res) {
     var error = req.query.error;
     var success = req.query.success;
@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
 
 // get frits and display feed on success (on error, display failure)
 var getFrits = function(user, res, error, success) {
-    user.getFrits(function(err, frits) {
+    User.getAllFrits(function(err, frits) {
         if (err) {
             // something bad happened
             console.error(err);

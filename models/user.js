@@ -7,7 +7,8 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = new Schema({
     name: { type: String, required: true },
     email: { type: String, unique: true, required: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
 UserSchema.methods.verifyPassword = function (enteredPassword, callback) {
@@ -16,22 +17,47 @@ UserSchema.methods.verifyPassword = function (enteredPassword, callback) {
     });
 }
 
-// find all frits made by me, sorted by date
-UserSchema.methods.getMyFrits = function (callback) {
-    Frit.find({ author: userId }).sort({ date: 'desc' }).exec(function (err, frits) {
+// check if the user is following a given userId
+UserSchema.methods.isFollowing = function (userIdFollowing) {
+    var index = this.following.indexOf(userIdFollowing);
+    return index > -1;
+}
+
+// add/remove user to following
+UserSchema.statics.follow = function (userId, userIdToFollow, follow, callback) {
+    User.findOne({ _id: userId }, function (err, user) {
+        if (err || user == null) return callback(err);
+        var following = user.following;
+        addRemoveFromList(following, userIdToFollow, follow);
+        user.save(function (err, user) {
+            return callback(err, user);
+        });
+    });
+}
+
+// find all frits, sorted by date
+UserSchema.statics.getAllFrits = function (callback) {
+    Frit.find({}).sort({ date: 'desc' }).exec(function (err, frits) {
         Frit.populate(frits, { path: "author" }, function (err, frits) {
             return callback(err, frits);
         });
     });
 }
 
-// find all frits, sorted by date
-UserSchema.methods.getFrits = function (callback) {
-    Frit.find({}).sort({ date: 'desc' }).exec(function (err, frits) {
-        Frit.populate(frits, { path: "author" }, function (err, frits) {
-            return callback(err, frits);
-        });
-    });
+// mutates list and adds or removes first instance of item in list (if present)
+var addRemoveFromList = function(list, item, add) {
+    // add to list
+    if (add) {
+        list.push(item);
+    } else { 
+        // remove from list
+        var index = list.indexOf(item);
+        if (index > -1) {
+            list.splice(index, 1);
+        }
+    }
+
+    return list;
 }
 
 UserSchema.pre('save', function(next) {
