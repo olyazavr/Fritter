@@ -3,3 +3,6 @@
 [Hosted on OpenShift here](http://fritter-olgash.rhcloud.com/)
 
 [Design Doc here](https://github.com/6170-fa14/olgash_proj2/raw/master/design.pdf)
+
+Larger Version of Model Diagram:
+![Model Diagram](diagram.png?raw=true "Model Diagram")
