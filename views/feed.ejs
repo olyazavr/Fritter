@@ -47,7 +47,7 @@
         <div class='frit frit-holder <%= followedString %> <%= favoriteString %>'>
 
             <!-- only authors of frits can edit/delete their frits -->
-            <% if (frit.author.email != user.email) { %>
+            <% if (frit.author.email == user.email) { %>
                 <!-- delete frit -->
                 <form class='deleteFrit' action='/deleteFrit' method='post'>
                     <input type='hidden' name='fritId' value=<%= frit.id %>>
