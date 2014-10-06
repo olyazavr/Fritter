@@ -83,14 +83,37 @@
             <% } %>
 
             <span id=<%= counter %> class='frit author'><%= frit.author.name %>:</span> 
-            <span id=<%= counter %> class='frit frit-text'><%= frit.text %></span>
+            <span id=<%= counter %> class='frit frit-text'><%= frit.content %></span>
             <br>
-            <% var dateString = frit.date.toString(); %> <!-- cut off GMT -->
-            <span id=<%= counter %> class='frit frit-date'><%= dateString.substring(0, dateString.length-15) %></span>
+            <% var dateString = frit.createdOn.toString(); %> <!-- cut off GMT -->
+            <span id=<%= counter %> class='frit frit-footer'>posted on <%= dateString.substring(0, dateString.length-15) %> | favorited <%= frit.favoritedBy.length %> times</span>
         </div>
     <% }); %>
 
-    <div id='editModalHere'></div>
+    <!-- modal for adding new Frit/editing an existing Frit -->
+    <div class='modal fade' id='editModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'> 
+        <div class='modal-dialog'> 
+          <div class='modal-content'> 
+            <div class='modal-header'> 
+              <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button> 
+              <h4 class='modal-title' id='editModalLabel'></h4> 
+            </div> 
+            <div class='modal-body'> 
+
+              <!-- editing space --> 
+              <form id='editFrit' method='post'> 
+                <input id='fritIdInput' type='hidden' name='fritId'> 
+                <input id='contentInput' type='text' name='content' required autofocus> 
+                <input type='submit' class='btn btn-primary' value='Save Changes' method='post'> 
+              </form> 
+              <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> 
+              <!-- /editing space --> 
+
+            </div> 
+          </div>
+        </div> 
+    </div>
+    <!-- /modal -->
 
   </body>
 </html>

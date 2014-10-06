@@ -23,17 +23,8 @@ app.use(session({ secret: 'beans',
                 saveUninitialized: true,
                 resave: true }));
 
-// routes
-app.use('/', require('./routes/index'));
-app.use('/login', require('./routes/login'));
-app.use('/register', require('./routes/register'));
-app.use('/feed', require('./routes/feed'));
-app.use('/newFrit', require('./routes/newFrit'));
-app.use('/editFrit', require('./routes/editFrit'));
-app.use('/deleteFrit', require('./routes/deleteFrit'));
-app.use('/logout', require('./routes/logout'));
-app.use('/follow', require('./routes/follow'));
-app.use('/favorite', require('./routes/favorite'));
+// set up routes
+require('./routes/routes')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -69,7 +60,7 @@ app.use(function(err, req, res, next) {
 //  find db string
 var connection_string = 'mongodb://localhost/fritter';
 
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
     process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
     process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +

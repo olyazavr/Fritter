@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var FritSchema = new Schema({
-    text: { type: String, required: true },
-    date: { type: Date, default: Date.now },
+    content: { type: String, required: true },
+    createdOn: { type: Date, default: Date.now },
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     favoritedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });

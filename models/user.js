@@ -37,7 +37,7 @@ UserSchema.statics.follow = function (userId, userIdToFollow, follow, callback) 
 
 // find all frits, sorted by date
 UserSchema.statics.getAllFrits = function (callback) {
-    Frit.find({}).sort({ date: 'desc' }).exec(function (err, frits) {
+    Frit.find({}).sort({ createdOn: 'desc' }).exec(function (err, frits) {
         Frit.populate(frits, { path: "author" }, function (err, frits) {
             return callback(err, frits);
         });
