@@ -13,7 +13,7 @@ module.exports = {
                 console.error(err);
                 res.redirect('/?error=Please try again');
 
-            } else if (user == null){
+            } else if (user == null) {
                 // user not found
                 res.redirect('/?error=Please make an account');
 
